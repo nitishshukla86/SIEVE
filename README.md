@@ -11,18 +11,20 @@ S(N) = clip(N, 2, 4), and a closed-form schedule makes the depth-averaged token 
 
 <img src="figures/teaser.png" width="100%">
 
-**Overview of SIEVE.** (a) On a three-image question, LLaVA-OneVision-7B keeps 6.4% of its visual
-tokens and still answers correctly. Each image is pooled before the decoder, then reduced in
-S(N) = 3 attention-scored stages that keep an equal share per image and merge every removed token
-into its most similar survivor; on the right, each cell is tinted by the final token that absorbed
-it. (b) At a 12.5% budget SIEVE is best on every multi-image benchmark, relative to the uncompressed
-model (dashed ring = 100). (c) One component at a time at 6.25%, mean over five benchmarks.
-(d) On COCO, attention to the queried object peaks in the second half of every backbone, so
-selection is spread over depth rather than taken once.
+**Overview of SIEVE.** **(a)** **Top:** On COCO, attention to queried objects peaks in the latter half of decoder
+layers across backbones. **Bottom:** Fraction of global top-10% tokens assigned to the queried image (solid) and
+their overlap across questions (dashed), per backbone. Early rankings are largely query-agnostic, motivating
+per-image allocation and deferred attention-based selection. **(b)** Cumulative effect of each component at a
+6.25% budget, averaged over five benchmarks. Pooling and budget scheduling provide most gains; progressive merging
+adds 2.27 points. **(c)** At a 12.5% budget, SIEVE leads on all five multi-image benchmarks with
+LLaVA-OneVision-7B, normalized to the uncompressed model (dashed ring: 100). **(d)** Three-image example:
+LLaVA-OneVision-7B answers correctly with only 6.25% of visual tokens. After per-image pooling, S(N) = 3 stages
+retain equal quotas per image and merge discarded tokens into their most similar retained tokens within the same
+image. Colors indicate the final token absorbing each region.
 
 | | |
 |---|---|
-| **Retained visual tokens at each merging stage**, LLaVA-OneVision-7B keeping 6.25% of the visual tokens; darkened cells are no longer represented as separate tokens. | **Accuracy vs. estimated prefill compute** on LLaVA-OneVision at budgets of 1/16, 1/8 and 1/4 (five-benchmark average). SIEVE is the most accurate at every compute level and, at the two larger budgets, exceeds the uncompressed model (dashed line). |
+| **Retained visual tokens at each merging stage**, LLaVA-OneVision-7B at 6.25%. Darkened cells are no longer separate tokens. Reduction happens after layers 2, 19, 23 for the three-image question and 2, 21 for the two-image one. Red rings mark the object each question names (discount and cereal box). | **Accuracy vs. compute** on LLaVA-OneVision at B ∈ {1/16, 1/8, 1/4} (five-benchmark average). SIEVE has the highest accuracy at every compute level and, at B ≥ 1/8, exceeds the uncompressed model (dashed, 63.12). x-axis: estimated visual-token prefill TFLOPs. |
 | <img src="figures/qualitative.png" width="100%"> | <img src="figures/flops.png" width="100%"> |
 
 ## Code
