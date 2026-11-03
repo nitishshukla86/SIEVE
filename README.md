@@ -6,7 +6,7 @@ inside the decoder, giving every image an equal share and merging each removed t
 similar survivor from the same image. The number of stages follows the image count,
 S(N) = clip(N, 2, 4), and a closed-form schedule makes the depth-averaged token count meet the budget.
 
-[![Paper](https://img.shields.io/badge/Paper-arXiv%202610.00000-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2610.00000)
+[![Paper](https://img.shields.io/badge/Paper-arXiv%202611.00351-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2611.00351)
 [![Project page](https://img.shields.io/badge/Project-Page-2a78d6?logo=githubpages&logoColor=white)](https://nitishshukla86.github.io/SIEVE/)
 
 <img src="figures/teaser.png" width="100%">
@@ -37,7 +37,7 @@ The code will be released soon.
 @article{shukla2026sieve,
   title   = {{SIEVE}: Preserving Cross-Image Evidence via Depth-Aware Token Compression},
   author  = {Shukla, Nitish and Jandial, Surgan and Bui, Nhat-Tan and Ross, Arun},
-  journal = {arXiv preprint arXiv:2610.00000},
+  journal = {arXiv preprint arXiv:2611.00351},
   year    = {2026}
 }
 ```
